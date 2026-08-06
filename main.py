@@ -7,7 +7,7 @@ from telegram.ext import (
     filters,
 )
 
-TOKEN = "8482176066:AAHrZhDXGTs-r8Q8MfCPl1kWCBplnWqC-XQ"
+TOKEN = "8482176066:AAEIpjxDSMdMrfpP1ianm3BahyNB-NAE0i4"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
