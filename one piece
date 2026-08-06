@@ -1,0 +1,87 @@
+from telegram import Update, ReplyKeyboardMarkup
+from telegram.ext import (
+    Application,
+    CommandHandler,
+    MessageHandler,
+    ContextTypes,
+    filters,
+)
+
+TOKEN = "8482176066:AAHrZhDXGTs-r8Q8MfCPl1kWCBplnWqC-XQ"
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        ["⚔️ Adventure", "👤 Profile"],
+        ["🍈 Devil Fruits", "🎒 Inventory"],
+        ["🏴 Crew", "🎁 Daily Reward"],
+        ["🏪 Shop", "🏆 Leaderboard"],
+    ]
+
+    reply_markup = ReplyKeyboardMarkup(
+        keyboard,
+        resize_keyboard=True
+    )
+
+    await update.message.reply_text(
+        "🏴‍☠️ Welcome, Captain!\n\nThe Grand Line awaits!\nChoose an option below:",
+        reply_markup=reply_markup
+    )
+
+async def menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = update.message.text
+
+    if text == "⚔️ Adventure":
+        await update.message.reply_text(
+            "🌊 Choose your destination:\n\n"
+            "🏝️ East Blue\n"
+            "🌊 Grand Line\n"
+            "🔥 New World"
+        )
+
+    elif text == "👤 Profile":
+        await update.message.reply_text(
+            "👤 Captain Profile\n\n"
+            "⭐ Level: 1\n"
+            "❤️ HP: 100/100\n"
+            "💰 Berries: 500\n"
+            "🍈 Devil Fruit: None\n"
+            "🏴 Crew: None"
+        )
+
+    elif text == "🍈 Devil Fruits":
+        await update.message.reply_text(
+            "🍈 You don't have a Devil Fruit yet!"
+        )
+
+    elif text == "🎒 Inventory":
+        await update.message.reply_text(
+            "🎒 Your inventory is empty."
+        )
+
+    elif text == "🏴 Crew":
+        await update.message.reply_text(
+            "🏴 You are not in a crew."
+        )
+
+    elif text == "🎁 Daily Reward":
+        await update.message.reply_text(
+            "🎁 Daily rewards are coming soon!"
+        )
+
+    elif text == "🏪 Shop":
+        await update.message.reply_text(
+            "🏪 The shop will open soon!"
+        )
+
+    elif text == "🏆 Leaderboard":
+        await update.message.reply_text(
+            "🏆 Leaderboards are coming soon!"
+        )
+
+app = Application.builder().token(TOKEN).build()
+
+app.add_handler(CommandHandler("start", start))
+app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, menu))
+
+print("🏴‍☠️ One Piece Bot is running...")
+app.run_polling()
